@@ -1,14 +1,13 @@
-from django.urls import path
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import NoteViewSet, RegisterView, LoginView, LogoutView
+from .views import SignupView, LoginView, LogoutView, NoteViewSet
 
 router = DefaultRouter()
-router.register('notes', NoteViewSet)
+router.register(r'notes', NoteViewSet, basename='note')
 
 urlpatterns = [
-    path('register/', RegisterView.as_view()),
-    path('login/', LoginView.as_view()),
-    path('logout/', LogoutView.as_view()),
+    path('auth/signup/', SignupView.as_view(), name='signup'),
+    path('auth/login/', LoginView.as_view(), name='login'),
+    path('auth/logout/', LogoutView.as_view(), name='logout'),
+    path('', include(router.urls)),
 ]
-
-urlpatterns += router.urls
