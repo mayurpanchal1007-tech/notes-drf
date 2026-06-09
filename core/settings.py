@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "unfold",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,6 +43,12 @@ INSTALLED_APPS = [
     "notes",
     'rest_framework_simplejwt.token_blacklist',
 ]
+
+UNFOLD = {
+    "SITE_TITLE": "Notes Admin",
+    "SITE_HEADER": "Notes Backend",
+    "SITE_URL": "/",
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # must be first
@@ -142,3 +149,8 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
+
+import os
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
