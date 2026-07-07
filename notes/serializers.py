@@ -8,11 +8,10 @@ class NoteSerializer(serializers.ModelSerializer):
         model = Note
         fields = '__all__'
 
-
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'password']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -20,6 +19,5 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return User.objects.create_user(
             username=validated_data['username'],
-            email=validated_data['email'],
             password=validated_data['password']
         )

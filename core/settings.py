@@ -42,6 +42,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "core.urls"
 
+INSTALLED_APPS += ['corsheaders']
+
+MIDDLEWARE.insert(2, "corsheaders.middleware.CorsMiddleware")
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -101,6 +105,22 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+# Allow frontend (port 8001) to talk to backend (port 8000)
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8001",
+    "http://localhost:8001",
+]
 
 UNFOLD = {
     "SITE_TITLE": "NotesHub Admin",
